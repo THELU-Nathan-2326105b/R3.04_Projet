@@ -1,5 +1,7 @@
 package TP3;
 
+import java.util.ArrayList;
+
 public class Nain extends Creature{
     private String nomComplet; //Nom puis prénom
     private String sexe; //Tout choix possible
@@ -7,16 +9,17 @@ public class Nain extends Creature{
     private int taille; //En centimètre
     private int age;
     private int moralIndic; //Oscille entre 1 et 5
-    //private ArrayList<Maladie> listeMaladies;
+    private ArrayList<Maladie> listeMaladies;
 
-    public Nain(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic) {
-        super(nomComplet, sexe, poids, taille, age, moralIndic);
+    public Nain(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
+        super(nomComplet, sexe, poids, taille, age, moralIndic, listeMaladies);
         this.nomComplet = nomComplet;
         this.sexe = sexe;
         this.poids = poids;
         this.taille = taille;
         this.age = age;
         this.moralIndic = moralIndic;
+        this.listeMaladies = listeMaladies;
     }
 
     @Override

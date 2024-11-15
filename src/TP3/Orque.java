@@ -1,22 +1,25 @@
 package TP3;
 
-public class Orque {
+import java.util.ArrayList;
+
+public class Orque extends Creature{
     private String nomComplet; //Nom puis prénom
     private String sexe; //Tout choix possible
     private double poids; //En kilogramme
     private int taille; //En centimètre
     private int age;
     private int moralIndic; //Oscille entre 5 et 1
-    //private ArrayList<Maladie> listeMaladies;
+    private ArrayList<Maladie> listeMaladies;
 
-    public Orque(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic/*, ArrayList<Maladie> listeMaladies*/) {
+    public Orque(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
+        super(nomComplet, sexe, poids, taille, age, moralIndic, listeMaladies);
         this.nomComplet = nomComplet;
         this.sexe = sexe;
         this.poids = poids;
         this.taille = taille;
         this.age = age;
         this.moralIndic = moralIndic;
-        //this.listeMaladies = listeMaladies;
+        this.listeMaladies = listeMaladies;
     }
 
     @Override

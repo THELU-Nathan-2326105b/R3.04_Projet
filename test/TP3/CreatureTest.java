@@ -4,13 +4,19 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
 public class CreatureTest {
     @Test
     public void testAttendre() {
-        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 5);
+        ArrayList<Maladie> listeMal = new ArrayList();
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        listeMal.add(malaria);
+        listeMal.add(corida);
+        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 5, listeMal);
         n1.attendre();
         int moral2 = n1.getMoralIndic();
         assertEquals(4, moral2);
@@ -25,7 +31,12 @@ public class CreatureTest {
 
         try {
             // Appel de la méthode à tester
-            Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3);
+            ArrayList<Maladie> listeMal = new ArrayList();
+            Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
+            Maladie corida = new Maladie("Corida", "cda", 1, 5);
+            listeMal.add(malaria);
+            listeMal.add(corida);
+            Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
             n1.hurler();
 
             // Vérification : Comparer la sortie avec la chaîne attendue
