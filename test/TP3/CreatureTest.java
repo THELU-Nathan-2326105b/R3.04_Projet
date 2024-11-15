@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CreatureTest {
     @Test
@@ -53,10 +54,21 @@ public class CreatureTest {
 
     }*/
 
-    /*@Test
-    public void tomberMalade(){
-
-    }*/
+    @Test
+    public void testTomberMalade(){
+        ArrayList<Maladie> listeMal = new ArrayList();
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        listeMal.add(malaria);
+        listeMal.add(corida);
+        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
+        ArrayList<Maladie> l1;
+        ArrayList<Maladie> l2;
+        l1 = n1.getListeMaladies();
+        n1.tomberMalade();
+        l2 = n1.getListeMaladies();
+        assertEquals(l1, l2);
+    }
 
 
 }
