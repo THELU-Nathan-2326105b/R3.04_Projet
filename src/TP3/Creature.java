@@ -22,6 +22,11 @@ public abstract class Creature {
         this.listeMaladies = listeMaladies;
     }
 
+    public boolean getNomComplet() {
+        this.nomComplet = nomComplet;
+        return false;
+    }
+
     public void setMoralIndic(int moralIndic) {
         this.moralIndic = moralIndic;
     }

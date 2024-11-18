@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class CreatureTest {
     @Test
     public void testAttendre() {
-        ArrayList<Maladie> listeMal = new ArrayList();
+        ArrayList<Maladie> listeMal = new ArrayList<>();
         Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
         Maladie corida = new Maladie("Corida", "cda", 1, 5);
         listeMal.add(malaria);
@@ -32,7 +32,7 @@ public class CreatureTest {
 
         try {
             // Appel de la méthode à tester
-            ArrayList<Maladie> listeMal = new ArrayList();
+            ArrayList<Maladie> listeMal = new ArrayList<>();
             Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
             Maladie corida = new Maladie("Corida", "cda", 1, 5);
             listeMal.add(malaria);
@@ -56,7 +56,7 @@ public class CreatureTest {
 
     @Test
     public void testTomberMalade(){
-        ArrayList<Maladie> listeMal = new ArrayList();
+        ArrayList<Maladie> listeMal = new ArrayList<>();
         Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
         Maladie corida = new Maladie("Corida", "cda", 1, 5);
         listeMal.add(malaria);
@@ -79,7 +79,7 @@ public class CreatureTest {
     }
 
     @Test public void testEtreSoigne(){
-        ArrayList<Maladie> listeMal = new ArrayList();
+        ArrayList<Maladie> listeMal = new ArrayList<>();
         Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
         Maladie corida = new Maladie("Corida", "cda", 1, 5);
         listeMal.add(malaria);
