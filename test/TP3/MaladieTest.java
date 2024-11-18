@@ -38,7 +38,6 @@ public class MaladieTest {
         maladie.augmenterNiveau(2);
         maladie.diminuerNiveau(1);
         assertEquals(2, maladie.getNiveauActuel());
-
         maladie.diminuerNiveau(1);
         assertEquals(1, maladie.getNiveauActuel());
     }
