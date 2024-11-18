@@ -82,7 +82,7 @@ public class ServiceMedical {
         Random r1 = new Random();
 
         for (Creature creature : listeCreatures) {
-            for (Maladie maladie : creature.getListeMaladies()) {
+            for (Maladie maladie : creature.getListeMaladie()) {
                 int nb = r1.nextInt(5);
                 if (nb == 0) {
                     int niveauActuel = maladie.getNiveauActuel();

@@ -53,6 +53,9 @@ public abstract class Creature {
         return maladiesEnClair;
     }
 
+    public ArrayList<Maladie> getListeMaladie(){
+        return listeMaladies;
+    }
     public void tomberMalade() {
         Random r1 = new Random();
         int nb = r1.nextInt(6);
