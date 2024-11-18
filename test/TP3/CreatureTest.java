@@ -57,18 +57,27 @@ public class CreatureTest {
     @Test
     public void testTomberMalade(){
         ArrayList<Maladie> listeMal = new ArrayList();
+        ArrayList<Maladie> listeMal2 = new ArrayList();
         Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
         Maladie corida = new Maladie("Corida", "cda", 1, 5);
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
-        ArrayList<Maladie> l1;
-        ArrayList<Maladie> l2;
-        l1 = n1.getListeMaladies();
+        ArrayList<String> l2;
         n1.tomberMalade();
         l2 = n1.getListeMaladies();
-        assertEquals(l1, l2);
+        System.out.println(l2);
+        String lActuel = l2.toString();
+        String res1 = "[mala: Malaria, cda: Corida, ZPL: Zoopathie paraphénique lycanthropique]";
+        String res2 = "[mala: Malaria, cda: Corida, FOMO: Syndrome fear of missing out]";
+        String res3 = "[mala: Malaria, cda: Corida, DRS: Dépendance aux réseaux sociaux]";
+        String res4 = "[mala: Malaria, cda: Corida, MDC: Maladie débilitante chronique]";
+        String res5 = "[mala: Malaria, cda: Corida, PEC: Porphyrie érythropoïétique congénitale]";
+        String res6 = "[mala: Malaria, cda: Corida, BG: Bégaiement Gustitif]";
+        assertTrue(
+            lActuel.equals(res1) || lActuel.equals(res2) || lActuel.equals(res3) || lActuel.equals(res4) ||
+                    lActuel.equals(res5) || lActuel.equals(res6)
+        );
     }
-
 
 }
