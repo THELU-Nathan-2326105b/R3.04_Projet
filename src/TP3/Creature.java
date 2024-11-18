@@ -30,6 +30,8 @@ public abstract class Creature {
         return moralIndic;
     }
 
+    public String getNom() { return nomComplet; }
+
     public void attendre(){
         if(this.moralIndic<=1){
             this.hurler();

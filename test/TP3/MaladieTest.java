@@ -12,7 +12,7 @@ public class MaladieTest {
         assertEquals("Maladie Débilitante Chronique", maladie.getNomComplet());
         assertEquals("MDC", maladie.getNomAbrege());
         assertEquals(0, maladie.getNiveauActuel());
-        assertEquals(100, maladie.getNiveauMaximum());
+        assertEquals(5, maladie.getNiveauMaximum());
     }
     @Test
     public void testAugmenterNiveau() {
