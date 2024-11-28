@@ -13,8 +13,8 @@ public class CreatureTest {
     @Test
     public void testAttendre() {
         ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5, true);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5, true);
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 5, listeMal);
@@ -33,8 +33,8 @@ public class CreatureTest {
         try {
             // Appel de la méthode à tester
             ArrayList<Maladie> listeMal = new ArrayList<>();
-            Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-            Maladie corida = new Maladie("Corida", "cda", 1, 5);
+            Maladie malaria = new Maladie("Malaria", "mala", 2, 5, true);
+            Maladie corida = new Maladie("Corida", "cda", 1, 5,true);
             listeMal.add(malaria);
             listeMal.add(corida);
             Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
@@ -57,8 +57,8 @@ public class CreatureTest {
     @Test
     public void testTomberMalade(){
         ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5,true);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5,true);
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
@@ -80,8 +80,8 @@ public class CreatureTest {
 
     @Test public void testEtreSoigne(){
         ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5,true);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5,true);
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
@@ -101,8 +101,8 @@ public class CreatureTest {
     @Test
     public void testTrepasser(){
         ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5, true);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5, true);
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);

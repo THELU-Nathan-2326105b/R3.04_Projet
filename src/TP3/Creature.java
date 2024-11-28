@@ -70,27 +70,27 @@ public abstract class Creature {
             int nMal= r1.nextInt(6);
             System.out.println(nMal);
             if (nMal ==0){
-                Maladie m0 =new Maladie("Maladie débilitante chronique", "MDC", 1, 5);
+                Maladie m0 =new Maladie("Maladie débilitante chronique", "MDC", 1, 5, false);
                 this.listeMaladies.add(m0);
             }
             if (nMal ==1){
-                Maladie m1 =new Maladie("Syndrome fear of missing out", "FOMO", 1, 5);
+                Maladie m1 =new Maladie("Syndrome fear of missing out", "FOMO", 1, 5, true );
                 this.listeMaladies.add(m1);
             }
             if (nMal ==2){
-                Maladie m2 =new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5);
+                Maladie m2 =new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5, true);
                 this.listeMaladies.add(m2);
             }
             if (nMal ==3){
-                Maladie m3 =new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5);
+                Maladie m3 =new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5,false);
                 this.listeMaladies.add(m3);
             }
             if (nMal ==4){
-                Maladie m4 =new Maladie("Zoopathie paraphénique lycanthropique", "ZPL", 1, 5);
+                Maladie m4 =new Maladie("Zoopathie paraphénique lycanthropique", "ZPL", 1, 5, true);
                 this.listeMaladies.add(m4);
             }
             if (nMal ==5) {
-                Maladie m5 =new Maladie("Bégaiement Gustatif", "BG", 1, 5);
+                Maladie m5 =new Maladie("Bégaiement Gustatif", "BG", 1, 5, true);
                 this.listeMaladies.add(m5);
             }
         }
@@ -103,6 +103,15 @@ public abstract class Creature {
             int nbMal= r1.nextInt(this.listeMaladies.size());
             this.listeMaladies.remove(nbMal);
         }
+    }
+
+    public boolean aMaladieContagieuse() {
+        for (Maladie maladie : listeMaladies) {
+            if (maladie.isContagieuse()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void trepasser(){

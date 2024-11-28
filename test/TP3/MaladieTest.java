@@ -8,7 +8,7 @@ public class MaladieTest {
     @Test
     public void testCreationMaladie() {
         // Test de la création de la maladie
-        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1,5);
+        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1,5, true);
         assertEquals("Maladie Débilitante Chronique", maladie.getNomComplet());
         assertEquals("MDC", maladie.getNomAbrege());
         assertEquals(0, maladie.getNiveauActuel());
@@ -16,7 +16,7 @@ public class MaladieTest {
     }
     @Test
     public void testAugmenterNiveau() {
-        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC",1, 5);
+        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC",1, 5,true);
         maladie.augmenterNiveau(3);
         assertEquals(4, maladie.getNiveauActuel());
 
@@ -25,7 +25,7 @@ public class MaladieTest {
     }
     @Test
     public void testEstLetale() {
-        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1, 5);
+        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1, 5,true);
         assertFalse(maladie.estLetale());
 
         maladie.augmenterNiveau(5);
@@ -34,7 +34,7 @@ public class MaladieTest {
 
     @Test
     public void testDiminueNiveau() {
-        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1, 5);
+        Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1, 5,true);
         maladie.augmenterNiveau(2);
         maladie.diminuerNiveau(1);
         assertEquals(2, maladie.getNiveauActuel());

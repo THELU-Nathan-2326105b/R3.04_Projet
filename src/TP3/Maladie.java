@@ -5,12 +5,14 @@ public class Maladie {
     private String nomAbrege;
     private int niveauActuel;
     private int niveauMaximum;
+    private boolean contagieuse;
 
-    public Maladie(String nomComplet, String nomAbrege,int niveauActuel, int niveauMaximum) {
+    public Maladie(String nomComplet, String nomAbrege,int niveauActuel, int niveauMaximum, boolean contagieuse) {
         this.nomComplet = nomComplet;
         this.nomAbrege = nomAbrege;
         this.niveauActuel = niveauActuel;
         this.niveauMaximum = niveauMaximum;
+        this.contagieuse = contagieuse;
     }
     public String getNomComplet() {
         return nomComplet;
@@ -41,6 +43,9 @@ public class Maladie {
         if (niveauActuel > niveauMaximum) {
             niveauActuel = niveauMaximum;
         }
+    }
+    public boolean isContagieuse() {
+        return contagieuse;
     }
     public boolean estLetale() {
         return niveauActuel == niveauMaximum;

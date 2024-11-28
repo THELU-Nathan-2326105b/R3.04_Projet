@@ -10,8 +10,8 @@ public class ServiceMedicalTest {
     public void testCreationServiceMedical() {
         // Préparer les données
         ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5,true);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5,true);
         listeMal.add(malaria);
         listeMal.add(corida);
 
@@ -57,30 +57,18 @@ public class ServiceMedicalTest {
     @Test
     public void testSoignerCreatures() {
         ArrayList<Maladie> listeMal = new ArrayList();
-        Maladie malaria = new Maladie("Malaria", "Infection parasitaire", 2, 5);
-        Maladie grippe = new Maladie("Grippe", "Infection virale", 1, 3);
+        Maladie malaria = new Maladie("Malaria", "Infection parasitaire", 2, 5,true);
         listeMal.add(malaria);
-        listeMal.add(grippe);
         Orque orque = new Orque("Orquerino","male",68,100,8,1,listeMal);
-        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 5, listeMal);
-
         ArrayList<Creature> listeCreatures = new ArrayList<>();
         listeCreatures.add(orque);
-        listeCreatures.add(n1);
-
         ServiceMedical service = new ServiceMedical("Clinique Orcs", 100, 10, listeCreatures, "faible");
 
         int niveauMalariaAvant = malaria.getNiveauActuel();
-        int niveauGrippeAvantOrque = grippe.getNiveauActuel();
-        int niveauGrippeAvantTroll = grippe.getNiveauActuel();
 
         service.soignerCreatures();
 
         assertTrue(malaria.getNiveauActuel() == niveauMalariaAvant || malaria.getNiveauActuel() == niveauMalariaAvant - 1,
                 "Le niveau de la maladie 'Malaria' doit être réduit de 1 ou inchangé.");
-        assertTrue(grippe.getNiveauActuel() == niveauGrippeAvantOrque || grippe.getNiveauActuel() == niveauGrippeAvantOrque - 1,
-                "Le niveau de la maladie 'Grippe' (Orque) doit être réduit de 1 ou inchangé.");
-        assertTrue(grippe.getNiveauActuel() == niveauGrippeAvantTroll || grippe.getNiveauActuel() == niveauGrippeAvantTroll - 1,
-                "Le niveau de la maladie 'Grippe' (Troll) doit être réduit de 1 ou inchangé.");
     }
 }

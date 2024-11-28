@@ -46,7 +46,13 @@ public class ServiceMedical {
     }
 
     public void setBudget(String budget) {
-        if (budget == null || (!budget.equals("inexistant") && !budget.equals("médiocre") && !budget.equals("insuffisant") && !budget.equals("faible"))) {
+        if (budget == null ||
+                (!budget.equals("inexistant") &&
+                        !budget.equals("médiocre") &&
+                        !budget.equals("insuffisant") &&
+                        !budget.equals("faible") &&
+                        !budget.equals("moyen") &&
+                        !budget.equals("élevé"))) {
             throw new IllegalArgumentException("Erreur de création : budget invalide.");
         }
         this.budget = budget;

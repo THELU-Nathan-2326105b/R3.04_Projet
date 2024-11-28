@@ -7,8 +7,8 @@ public class MedecinTest {
         System.out.println("Début des tests pour la classe Medecin.");
 
         // Création des maladies
-        Maladie maladie1 = new Maladie("Syndrome fear of missing out", "FOMO", 3, 5);
-        Maladie maladie2 = new Maladie("Dépendance aux réseaux sociaux", "DRS", 2, 5);
+        Maladie maladie1 = new Maladie("Syndrome fear of missing out", "FOMO", 3, 5,true);
+        Maladie maladie2 = new Maladie("Dépendance aux réseaux sociaux", "DRS", 2, 5,true);
 
         // Création de créatures avec des maladies
         ArrayList<Maladie> maladiesOrque = new ArrayList<>();
@@ -17,7 +17,7 @@ public class MedecinTest {
         Orque orque1 = new Orque("Gorgutz", "Mâle", 120, 180, 25, 3, maladiesOrque);
 
         ArrayList<Maladie> maladiesElfe = new ArrayList<>();
-        maladiesElfe.add(new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5));
+        maladiesElfe.add(new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5,false));
         Elfe elfe1 = new Elfe("Lindir", "Femelle", 65, 170, 120, 4, maladiesElfe);
 
         // Création d'un service médical
