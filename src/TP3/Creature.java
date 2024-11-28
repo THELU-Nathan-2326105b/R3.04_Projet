@@ -50,6 +50,7 @@ public abstract class Creature {
         System.out.print("Agrougrou");
     }
 
+    //En format String
     public ArrayList<String> getListeMaladies() {
         ArrayList<String> maladiesEnClair = new ArrayList<>();
         for (Maladie maladie : listeMaladies) {
@@ -58,6 +59,7 @@ public abstract class Creature {
         return maladiesEnClair;
     }
 
+    //En format Maladie
     public ArrayList<Maladie> getListeMaladie(){
         return listeMaladies;
     }
@@ -100,6 +102,14 @@ public abstract class Creature {
         if (nb == 0){
             int nbMal= r1.nextInt(this.listeMaladies.size());
             this.listeMaladies.remove(nbMal);
+        }
+    }
+
+    public void trepasser(){
+        for(Maladie maladie : listeMaladies){
+            if (maladie.estLetale()) {
+
+            }
         }
     }
 

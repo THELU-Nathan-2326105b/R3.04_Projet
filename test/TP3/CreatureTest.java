@@ -98,4 +98,15 @@ public class CreatureTest {
         );
     }
 
+    @Test
+    public void testTrepasser(){
+        ArrayList<Maladie> listeMal = new ArrayList<>();
+        Maladie malaria = new Maladie("Malaria", "mala", 2, 5);
+        Maladie corida = new Maladie("Corida", "cda", 1, 5);
+        listeMal.add(malaria);
+        listeMal.add(corida);
+        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
+        n1.getListeMaladie().getFirst().setNiveauActuel(5);
+        assertEquals(n1.getNom(), "Gimli LeNain");
+    }
 }
