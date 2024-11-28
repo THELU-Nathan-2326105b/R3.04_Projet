@@ -96,32 +96,4 @@ public class Hopital {
 
         System.out.println("Fin de la simulation.");
     }
-
-    public static void main(String[] args) {
-        Hopital hopital = new Hopital("Fantasy Hospital", 5);
-
-        // Création de services médicaux
-        ServiceMedical serviceOrque = new ServiceMedical("Service des Orques", 100, 10, new ArrayList<>(), "médiocre");
-        ServiceMedical serviceElfe = new ServiceMedical("Service des Elfes", 80, 8, new ArrayList<>(), "faible");
-
-        // Ajout des services à l'hôpital
-        hopital.ajouterService(serviceOrque);
-        hopital.ajouterService(serviceElfe);
-
-        // Création de créatures
-        ArrayList<Maladie> maladies = new ArrayList<>();
-        Orque orque1 = new Orque("Gorgutz", "Mâle", 120, 180, 25, 5, maladies);
-        Elfe elfe1 = new Elfe("Lindir", "Femme", 60, 170, 120, 5, maladies);
-
-        // Ajout des créatures aux services
-        serviceOrque.getListeCreatures().add(orque1);
-        serviceElfe.getListeCreatures().add(elfe1);
-
-        // Création de médecins
-        Medecin medecin1 = new Medecin("Dr. Aenarion", "Mâle", 200);
-        hopital.ajouterMedecin(medecin1);
-
-        // Lancer la simulation
-        hopital.simuler();
-    }
 }

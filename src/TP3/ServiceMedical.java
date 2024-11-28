@@ -80,9 +80,16 @@ public class ServiceMedical {
         listeCreatures.add(creature);
     }
 
-    public void enleverCreature(Creature creature) {
-        listeCreatures.remove(creature);
+    // Ajout de la méthode pour retirer une créature
+    public void retirerCreature(Creature creature) {
+        if (listeCreatures.contains(creature)) {
+            listeCreatures.remove(creature);
+            System.out.println(creature.getNom() + " a été retirée du service " + this.nom + ".");
+        } else {
+            System.out.println(creature.getNom() + " n'est pas présent dans ce service.");
+        }
     }
+
 
     public void soignerCreatures() {
         Random r1 = new Random();
