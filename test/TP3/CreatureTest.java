@@ -6,8 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CreatureTest {
     @Test
@@ -99,14 +98,26 @@ public class CreatureTest {
     }
 
     @Test
-    public void testTrepasser(){
-        ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5, true);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5, true);
-        listeMal.add(malaria);
-        listeMal.add(corida);
-        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 3, listeMal);
-        n1.getListeMaladie().getFirst().setNiveauActuel(5);
-        assertEquals(n1.getNom(), "Gimli LeNain");
+    public void testTrepassementCreature() {
+        // Préparer les maladies
+        ArrayList<Maladie> maladies = new ArrayList<>();
+        maladies.add(new Maladie("Grippe", "GRP", 5, 5, true)); // Létale
+
+        // Préparer une créature
+        Creature creature = new Orque("Grug", "Mâle", 100, 180, 5, 1, maladies);
+
+        // Préparer un service médical
+        ArrayList<Creature> listeCreatures = new ArrayList<>();
+        listeCreatures.add(creature);
+        ServiceMedical serviceMedical = new ServiceMedical("Service Orc", 300, 5, listeCreatures, "faible");
+
+        // Vérifier avant trépas
+        assertEquals(1, serviceMedical.getNombreCreaturesPresente());
+
+        // Faire trépasser la créature
+        creature.trepasser(serviceMedical);
+
+        // Vérifier après trépas
+        assertEquals(0, serviceMedical.getNombreCreaturesPresente());
     }
 }

@@ -60,18 +60,19 @@ public abstract class Creature {
         return moralIndic;
     }
 
-    public String getNom() { return nomComplet; }
+    public String getNom() {
+        return nomComplet;
+    }
 
-    public void attendre(){
-        if(this.moralIndic<=1){
+    public void attendre() {
+        if (this.moralIndic <= 1) {
             this.hurler();
-        }
-        else{
-            this.setMoralIndic(this.moralIndic-1);
+        } else {
+            this.setMoralIndic(this.moralIndic - 1);
         }
     }
 
-    public void hurler(){
+    public void hurler() {
         System.out.print("Agrougrou");
     }
 
@@ -85,47 +86,48 @@ public abstract class Creature {
     }
 
     //En format Maladie
-    public ArrayList<Maladie> getListeMaladie(){
+    public ArrayList<Maladie> getListeMaladie() {
         return listeMaladies;
     }
+
     public void tomberMalade() {
         Random r1 = new Random();
         int nb = r1.nextInt(6);
-        if (nb != 0){
-            int nMal= r1.nextInt(6);
+        if (nb != 0) {
+            int nMal = r1.nextInt(6);
             System.out.println(nMal);
-            if (nMal ==0){
-                Maladie m0 =new Maladie("Maladie débilitante chronique", "MDC", 1, 5, false);
+            if (nMal == 0) {
+                Maladie m0 = new Maladie("Maladie débilitante chronique", "MDC", 1, 5, false);
                 this.listeMaladies.add(m0);
             }
-            if (nMal ==1){
-                Maladie m1 =new Maladie("Syndrome fear of missing out", "FOMO", 1, 5, true );
+            if (nMal == 1) {
+                Maladie m1 = new Maladie("Syndrome fear of missing out", "FOMO", 1, 5, true);
                 this.listeMaladies.add(m1);
             }
-            if (nMal ==2){
-                Maladie m2 =new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5, true);
+            if (nMal == 2) {
+                Maladie m2 = new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5, true);
                 this.listeMaladies.add(m2);
             }
-            if (nMal ==3){
-                Maladie m3 =new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5,false);
+            if (nMal == 3) {
+                Maladie m3 = new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5, false);
                 this.listeMaladies.add(m3);
             }
-            if (nMal ==4){
-                Maladie m4 =new Maladie("Zoopathie paraphénique lycanthropique", "ZPL", 1, 5, true);
+            if (nMal == 4) {
+                Maladie m4 = new Maladie("Zoopathie paraphénique lycanthropique", "ZPL", 1, 5, true);
                 this.listeMaladies.add(m4);
             }
-            if (nMal ==5) {
-                Maladie m5 =new Maladie("Bégaiement Gustatif", "BG", 1, 5, true);
+            if (nMal == 5) {
+                Maladie m5 = new Maladie("Bégaiement Gustatif", "BG", 1, 5, true);
                 this.listeMaladies.add(m5);
             }
         }
     }
 
-    public void etreSoigne(){
+    public void etreSoigne() {
         Random r1 = new Random();
         int nb = r1.nextInt(6);
-        if (nb == 0){
-            int nbMal= r1.nextInt(this.listeMaladies.size());
+        if (nb == 0) {
+            int nbMal = r1.nextInt(this.listeMaladies.size());
             this.listeMaladies.remove(nbMal);
         }
     }
@@ -139,14 +141,20 @@ public abstract class Creature {
         return false;
     }
 
-    public void trepasser(){
-        for(Maladie maladie : listeMaladies){
+    public void trepasser(ServiceMedical serviceMedical) {
+        // Vérifie si la créature a une maladie létale
+        for (Maladie maladie : listeMaladies) {
             if (maladie.estLetale()) {
 
+                System.out.println("La créature " + this.getNom() + " est morte à cause de la maladie : " + maladie.getNomComplet());
+                serviceMedical.retirerCreature(this);
+                listeMaladies.clear();
+
+                // Arrêter la méthode après la mort
+                return;
             }
         }
     }
-
     /*public void sEmporter(){
 
     }*/
