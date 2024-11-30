@@ -27,7 +27,6 @@ public abstract class Creature {
         this.sexe = sexe;
         this.poids = poids;
         this.taille = taille;
-        this.age = age;
         this.moralIndic = moralIndic;
         this.listeMaladies = listeMaladies;
     }
