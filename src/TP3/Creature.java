@@ -22,9 +22,34 @@ public abstract class Creature {
         this.listeMaladies = listeMaladies;
     }
 
-    public boolean getNomComplet() {
+    public Creature(String nomComplet, String sexe, double poids, int taille, int moralIndic, ArrayList<Maladie> listeMaladies) {
         this.nomComplet = nomComplet;
-        return false;
+        this.sexe = sexe;
+        this.poids = poids;
+        this.taille = taille;
+        this.age = age;
+        this.moralIndic = moralIndic;
+        this.listeMaladies = listeMaladies;
+    }
+
+    public double getPoids() {
+        return poids;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public int getTaille() {
+        return taille;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getNomComplet() {
+        return nomComplet;
     }
 
     public void setMoralIndic(int moralIndic) {
