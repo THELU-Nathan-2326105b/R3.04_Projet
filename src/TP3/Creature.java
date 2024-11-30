@@ -145,9 +145,19 @@ public abstract class Creature {
         // Vérifie si la créature a une maladie létale
         for (Maladie maladie : listeMaladies) {
             if (maladie.estLetale()) {
-
+                // Affiche un message indiquant que la créature est morte
                 System.out.println("La créature " + this.getNom() + " est morte à cause de la maladie : " + maladie.getNomComplet());
+
+                // Supprime la créature du service médical
                 serviceMedical.retirerCreature(this);
+
+                // Si la créature est un Elfe ou un Vampire, elle démoralise les autres membres
+                if (this instanceof Elfe || this instanceof Vampire) {
+                    System.out.println("La mort de " + this.getNom() + " démoralise les autres créatures.");
+                    serviceMedical.reduireMoralDesAutres(this);
+                }
+
+                // Vider la liste des maladies (facultatif)
                 listeMaladies.clear();
 
                 // Arrêter la méthode après la mort
@@ -155,6 +165,8 @@ public abstract class Creature {
             }
         }
     }
+
+
     /*public void sEmporter(){
 
     }*/

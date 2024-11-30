@@ -98,26 +98,43 @@ public class CreatureTest {
     }
 
     @Test
-    public void testTrepassementCreature() {
+    public void testTrepassementAvecDemoralisation() {
         // Préparer les maladies
-        ArrayList<Maladie> maladies = new ArrayList<>();
-        maladies.add(new Maladie("Grippe", "GRP", 5, 5, true)); // Létale
+        ArrayList<Maladie> maladiesLethales = new ArrayList<>();
+        Maladie maladieLetale = new Maladie("Grippe", "GRP", 5, 5, true); // Létale
+        maladiesLethales.add(maladieLetale);
 
-        // Préparer une créature
-        Creature creature = new Orque("Grug", "Mâle", 100, 180, 5, 1, maladies);
+        ArrayList<Maladie> maladiesNonLethales = new ArrayList<>();
+        Maladie maladieBenigne = new Maladie("Rhume", "RH", 2, 5, true); // Non létale
+        maladiesNonLethales.add(maladieBenigne);
+
+        // Préparer les créatures
+        Creature elfe = new Elfe("Legolas", "Homme", 100, 180, 120, 3, maladiesLethales);
+        Creature orque = new Orque("Gorg", "Orque", 150, 200, 160, 2, maladiesNonLethales);
+        Creature nain = new Nain("Gimli", "Homme", 120, 140, 150, 2, maladiesNonLethales);
 
         // Préparer un service médical
         ArrayList<Creature> listeCreatures = new ArrayList<>();
-        listeCreatures.add(creature);
-        ServiceMedical serviceMedical = new ServiceMedical("Service Orc", 300, 5, listeCreatures, "faible");
+        listeCreatures.add(elfe);
+        listeCreatures.add(orque);
+        listeCreatures.add(nain);
+        ServiceMedical serviceMedical = new ServiceMedical("Service Fantastique", 300, 5, listeCreatures, "faible");
 
-        // Vérifier avant trépas
-        assertEquals(1, serviceMedical.getNombreCreaturesPresente());
+        // Vérifier les indices de moral avant trépas
+        assertEquals(3, elfe.getMoralIndic());
+        assertEquals(2, orque.getMoralIndic());
+        assertEquals(2, nain.getMoralIndic());
 
-        // Faire trépasser la créature
-        creature.trepasser(serviceMedical);
+        // Faire trépasser l'Elfe
+        elfe.trepasser(serviceMedical);
 
-        // Vérifier après trépas
-        assertEquals(0, serviceMedical.getNombreCreaturesPresente());
+        // Vérifier que l'Elfe est retiré du service médical
+        assertEquals(2, serviceMedical.getNombreCreaturesPresente());
+
+        // Vérifier que le moral des autres créatures a diminué de -1
+        assertEquals(1, orque.getMoralIndic());
+        assertEquals(1, nain.getMoralIndic());
     }
+
+
 }
