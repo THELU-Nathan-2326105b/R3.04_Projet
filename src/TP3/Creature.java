@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Creature {
-    private String nomComplet; //Nom puis prénom
-    private String sexe; //Tout choix possible
-    private double poids; //En kilogramme
-    private int taille; //En centimètre
+    private String nomComplet; // Nom puis prénom
+    private String sexe; // Tout choix possible
+    private double poids; // En kilogramme
+    private int taille; // En centimètre
     private int age;
-    private int moralIndic; //Oscille entre 5 et 1
+    private int moralIndic; // Oscille entre 5 et 1
     private ArrayList<Maladie> listeMaladies;
 
     public Creature(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
@@ -72,101 +72,123 @@ public abstract class Creature {
     }
 
     public void hurler() {
-        System.out.print("Agrougrou");
+        System.out.print(this.nomComplet);
     }
 
-    //En format String
+    // Liste des maladies en format String
     public ArrayList<String> getListeMaladies() {
         ArrayList<String> maladiesEnClair = new ArrayList<>();
         for (Maladie maladie : listeMaladies) {
-            maladiesEnClair.add(maladie.toString()); // Utilise la méthode toString() de Maladie
+            maladiesEnClair.add(maladie.toString());
         }
         return maladiesEnClair;
     }
 
-    //En format Maladie
+    // Liste des maladies en format Maladie
     public ArrayList<Maladie> getListeMaladie() {
         return listeMaladies;
     }
 
     public void tomberMalade() {
         Random r1 = new Random();
-        int nb = r1.nextInt(6);
-        if (nb != 0) {
-            int nMal = r1.nextInt(6);
-            System.out.println(nMal);
-            if (nMal == 0) {
-                Maladie m0 = new Maladie("Maladie débilitante chronique", "MDC", 1, 5, false);
-                this.listeMaladies.add(m0);
-            }
-            if (nMal == 1) {
-                Maladie m1 = new Maladie("Syndrome fear of missing out", "FOMO", 1, 5, true);
-                this.listeMaladies.add(m1);
-            }
-            if (nMal == 2) {
-                Maladie m2 = new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5, true);
-                this.listeMaladies.add(m2);
-            }
-            if (nMal == 3) {
-                Maladie m3 = new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5, false);
-                this.listeMaladies.add(m3);
-            }
-            if (nMal == 4) {
-                Maladie m4 = new Maladie("Zoopathie paraphénique lycanthropique", "ZPL", 1, 5, true);
-                this.listeMaladies.add(m4);
-            }
-            if (nMal == 5) {
-                Maladie m5 = new Maladie("Bégaiement Gustatif", "BG", 1, 5, true);
-                this.listeMaladies.add(m5);
-            }
+        int nMal = r1.nextInt(6);
+        switch (nMal) {
+            case 0 -> listeMaladies.add(new Maladie("Maladie débilitante chronique", "MDC", 1, 5, false));
+            case 1 -> listeMaladies.add(new Maladie("Syndrome fear of missing out", "FOMO", 1, 5, true));
+            case 2 -> listeMaladies.add(new Maladie("Dépendance aux réseaux sociaux", "DRS", 1, 5, true));
+            case 3 -> listeMaladies.add(new Maladie("Porphyrie érythropoïétique congénitale", "PEC", 1, 5, false));
+            case 4 -> listeMaladies.add(new Maladie("Zoopathie paraphrénique lycanthropique", "ZPL", 1, 5, true));
+            case 5 -> listeMaladies.add(new Maladie("Bégaiement Gustatif", "BG", 1, 5, true));
         }
+        System.out.println(this.nomComplet + " a attrapé une nouvelle maladie.");
     }
 
     public void etreSoigne() {
-        Random r1 = new Random();
-        int nb = r1.nextInt(6);
-        if (nb == 0) {
-            int nbMal = r1.nextInt(this.listeMaladies.size());
-            this.listeMaladies.remove(nbMal);
+        if (!listeMaladies.isEmpty()) {
+            Maladie maladie = listeMaladies.getFirst();
+            maladie.diminuerNiveau(1);
+            if (maladie.getNiveauActuel() <= 1) {
+                listeMaladies.remove(maladie);
+                System.out.println(this.nomComplet + " est guéri de : " + maladie.getNomComplet());
+            }
         }
     }
 
     public boolean aMaladieContagieuse() {
-        for (Maladie maladie : listeMaladies) {
-            if (maladie.isContagieuse()) {
-                return true;
-            }
-        }
-        return false;
+        return listeMaladies.stream().anyMatch(Maladie::isContagieuse);
     }
 
     public void trepasser(ServiceMedical serviceMedical) {
-        // Vérifie si la créature a une maladie létale
         for (Maladie maladie : listeMaladies) {
             if (maladie.estLetale()) {
-                // Affiche un message indiquant que la créature est morte
-                System.out.println("La créature " + this.getNom() + " est morte à cause de la maladie : " + maladie.getNomComplet());
-
-                // Supprime la créature du service médical
+                System.out.println("La créature " + this.nomComplet + " est morte à cause de la maladie : " + maladie.getNomComplet());
                 serviceMedical.retirerCreature(this);
 
-                // Si la créature est un Elfe ou un Vampire, elle démoralise les autres membres
                 if (this instanceof Elfe || this instanceof Vampire) {
-                    System.out.println("La mort de " + this.getNom() + " démoralise les autres créatures.");
+                    System.out.println("La mort de " + this.nomComplet + " démoralise les autres créatures.");
                     serviceMedical.reduireMoralDesAutres(this);
                 }
 
-                // Vider la liste des maladies (facultatif)
-                listeMaladies.clear();
+                if (this instanceof Zombie || this instanceof Vampire) {
+                    regenerer(serviceMedical);
+                }
 
-                // Arrêter la méthode après la mort
+                listeMaladies.clear();
                 return;
             }
         }
     }
 
+    public void sEmporter(ServiceMedical service) {
+        System.out.println(this.nomComplet + " s'emporte !");
+        Maladie maladieContagieuse = listeMaladies.stream()
+                .filter(Maladie::isContagieuse)
+                .findFirst()
+                .orElse(null);
 
-    /*public void sEmporter(){
+        if (maladieContagieuse != null) {
+            Random random = new Random();
+            ArrayList<Creature> creatures = service.getListeCreatures();
+            Creature cible = creatures.get(random.nextInt(creatures.size()));
 
-    }*/
+            if (!cible.equals(this)) {
+                cible.tomberMaladeAvec(maladieContagieuse);
+                System.out.println(cible.getNomComplet() + " a été contaminé par " + maladieContagieuse.getNomComplet());
+            }
+        }
+    }
+
+    public void attendreAvecEffetVIP(boolean estVIP) {
+        if (estVIP) {
+            this.setMoralIndic(this.moralIndic - 2);
+            System.out.println(this.nomComplet + " (VIP) perd 2 points de moral.");
+        } else {
+            this.attendre();
+        }
+
+    }
+
+    public void attendreEnTriage(ServiceMedical service, boolean estEnTriage) {
+        if (estEnTriage) {
+            long nombreCongeneres = service.getListeCreatures().stream()
+                    .filter(c -> c.getClass().equals(this.getClass()))
+                    .count();
+            if (nombreCongeneres > 1) {
+                System.out.println(this.nomComplet + " tolère mieux l'attente grâce à la présence de congénères.");
+                return;
+            }
+        }
+        this.attendre();
+    }
+
+    public void regenerer(ServiceMedical service) {
+        System.out.println(this.nomComplet + " régénère après trépas !");
+        this.setMoralIndic(5);
+        service.ajouterCreature(this);
+    }
+
+    public void tomberMaladeAvec(Maladie maladie) {
+        listeMaladies.add(maladie);
+        System.out.println(this.nomComplet + " a attrapé : " + maladie.getNomComplet());
+    }
 }

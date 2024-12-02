@@ -56,6 +56,7 @@ public class Maladie {
             niveauActuel = 1;
         }
     }
+
     @Override
     public String toString() {
         return nomAbrege + ": " + nomComplet;

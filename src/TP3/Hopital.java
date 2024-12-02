@@ -59,12 +59,12 @@ public class Hopital {
                     //case 2 -> creature.sEmporter();
                 }
 
-                // Vérifier si la créature décède
-                /*if (creature.trepasser()) {
-                    System.out.println(creature.getNomComplet() + " a trépassé.");
-                    service.getListeCreatures().remove(creature);
-                    continue;
-                }*/
+//                // Vérifier si la créature décède
+//                if (creature.trepasser()) {
+//                    System.out.println(creature.getNomComplet() + " a trépassé.");
+//                    service.getListeCreatures().remove(creature);
+//                    continue;
+//                }
 
                 // Afficher les maladies de la créature
                 System.out.println("Maladies " + " :");
