@@ -24,7 +24,7 @@ public class HurlementTest {
 
             // Vérification de l'affichage
             String output = outputStream.toString();
-            assertTrue(output.contains("Hurlement émis par : Dinglu LaPute"));
+            assertTrue(output.contains("Hurlement émis par : Dinglu"));
             assertTrue(output.contains("Appartenance : Solitaire"));
         }
         finally {
@@ -41,7 +41,7 @@ public class HurlementTest {
         listeMal.add(malaria);
         listeMal.add(corida);
         Lycanthrope dinglu = new Lycanthrope(
-                "Dinglu LaPute",
+                "Dinglu",
                 "vieux",
                 "Male",
                 600,
