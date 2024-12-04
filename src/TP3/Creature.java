@@ -4,7 +4,10 @@ import TP3.Lycanthropes.Lycanthrope;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Représente une créature générique dans l'hôpital fantastique.
+ * Cette classe abstraite est destinée à être héritée par des types spécifiques de créatures.
+ */
 public abstract class Creature {
     private String nomComplet; //Nom puis prénom
     private String sexe; //Tout choix possible
@@ -14,6 +17,16 @@ public abstract class Creature {
     private int moralIndic; //Oscille entre 5 et 1
     private ArrayList<Maladie> listeMaladies;
 
+    /**
+     * Constructeur pour initialiser une créature avec des maladies.
+     * @param nomComplet Nom complet de la créature.
+     * @param sexe Sexe de la créature.
+     * @param poids Poids en kilogrammes.
+     * @param taille Taille en centimètres.
+     * @param age Âge de la créature.
+     * @param moralIndic Niveau initial de moral.
+     * @param listeMaladies Liste des maladies associées.
+     */
     public Creature(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
         this.nomComplet = nomComplet;
         this.sexe = sexe;
@@ -65,6 +78,9 @@ public abstract class Creature {
         return nomComplet;
     }
 
+    /**
+     * Permet à la créature d'attendre, réduisant potentiellement son moral.
+     */
     public void attendre(ServiceMedical serviceMedical) {
         if (this instanceof Orque || this instanceof HommeBete ||this instanceof Zombie || this instanceof Lycanthrope) {
             attendreEnTriage(serviceMedical);
@@ -126,6 +142,10 @@ public abstract class Creature {
     }
 
 
+    /**
+     * Vérifie si la créature a une maladie contagieuse.
+     * @return true si au moins une maladie est contagieuse, false sinon.
+     */
     public boolean aMaladieContagieuse() {
         return listeMaladies.stream().anyMatch(Maladie::isContagieuse);
     }

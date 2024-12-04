@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe principale représentant l'hôpital fantastique.
+ * L'hôpital gère des services médicaux, des médecins et des créatures.
+ */
 public class Hopital {
     private String nom;
     private int maxServices;
@@ -11,6 +15,11 @@ public class Hopital {
     private List<Medecin> medecins;
     private int jour;  // Nouveau champ pour suivre le jour actuel
 
+    /**
+     * Constructeur pour initialiser un hôpital.
+     * @param nom Nom de l'hôpital.
+     * @param maxServices Nombre maximum de services médicaux.
+     */
     public Hopital(String nom, int maxServices) {
         this.nom = nom;
         this.maxServices = maxServices;
@@ -38,7 +47,11 @@ public class Hopital {
         jour++;  // Augmenter le jour de 1
     }
 
-    // Ajouter un service médical
+    /**
+     * Ajoute un service médical à l'hôpital.
+     * @param service Service médical à ajouter.
+     * @return true si l'ajout est réussi, false sinon.
+     */
     public boolean ajouterService(ServiceMedical service) {
         if (services.size() < maxServices) {
             services.add(service);
@@ -73,6 +86,9 @@ public class Hopital {
         }
     }
 
+    /**
+     * Lance la simulation d'une journée dans l'hôpital.
+     */
     public void simuler() {
         System.out.println("\n--- Simulation d'une journée dans l'hôpital : " + nom + " ---");
 

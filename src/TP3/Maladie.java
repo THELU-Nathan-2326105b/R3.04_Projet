@@ -1,5 +1,9 @@
 package TP3;
 
+/**
+ * Représente une maladie dans le système de gestion de l'hôpital.
+ * Une maladie peut être contagieuse ou létale.
+ */
 public class Maladie {
     private String nomComplet;
     private String nomAbrege;
@@ -7,6 +11,15 @@ public class Maladie {
     private int niveauMaximum;
     private boolean contagieuse;
 
+
+    /**
+     * Constructeur pour créer une maladie.
+     * @param nomComplet Nom complet de la maladie.
+     * @param nomAbrege Nom abrégé de la maladie.
+     * @param niveauActuel Niveau actuel de gravité.
+     * @param niveauMaximum Niveau maximal de gravité.
+     * @param contagieuse Indique si la maladie est contagieuse.
+     */
     public Maladie(String nomComplet, String nomAbrege,int niveauActuel, int niveauMaximum, boolean contagieuse) {
         this.nomComplet = nomComplet;
         this.nomAbrege = nomAbrege;
@@ -38,6 +51,12 @@ public class Maladie {
     public void setNiveauMaximum(int niveauMaximum) {
         this.niveauMaximum = niveauMaximum;
     }
+
+
+    /**
+     * Augmente le niveau de gravité de la maladie.
+     * @param valeur Valeur à ajouter au niveau actuel.
+     */
     public void augmenterNiveau(int valeur) {
         niveauActuel += valeur;
         if (niveauActuel > niveauMaximum) {
@@ -47,9 +66,14 @@ public class Maladie {
     public boolean isContagieuse() {
         return contagieuse;
     }
+    /**
+     * Vérifie si la maladie est létale.
+     * @return true si le niveau actuel est égal ou supérieur au niveau maximal.
+     */
     public boolean estLetale() {
         return niveauActuel == niveauMaximum;
     }
+
     public void diminuerNiveau(int valeur) {
         niveauActuel -= valeur;
         if (niveauActuel <= 1) {

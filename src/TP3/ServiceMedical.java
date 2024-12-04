@@ -3,6 +3,10 @@ package TP3;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Représente un service médical dans l'hôpital.
+ * Les services médicaux gèrent des créatures et leur traitement.
+ */
 public class ServiceMedical {
     private String nom;
     private int superficie;
@@ -11,6 +15,11 @@ public class ServiceMedical {
     private String budget;
     private ArrayList<Medecin> medecins; // Nouvel attribut pour gérer les médecins
 
+    /**
+     * Constructeur pour créer un service médical.
+     * @param nom Nom du service.
+     * @param nombreMaximumCreatures Capacité maximale.
+     */
     public ServiceMedical(String nom, int superficie, int nombreMaximumCreatures, ArrayList<Creature> listeCreatures, String budget) {
         if (budget == null || (!budget.equals("inexistant") && !budget.equals("médiocre") && !budget.equals("insuffisant") && !budget.equals("faible"))) {
             throw new IllegalArgumentException("Erreur de création : budget invalide.");
@@ -73,6 +82,10 @@ public class ServiceMedical {
         }
     }
 
+    /**
+     * Ajoute une créature au service médical.
+     * @param creature Créature à ajouter.
+     */
     public void ajouterCreature(Creature creature) {
         if (listeCreatures.size() >= nombreMaximumCreatures) {
             throw new IllegalStateException("Le service médical est plein.");
