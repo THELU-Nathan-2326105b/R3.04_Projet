@@ -82,7 +82,6 @@ public class HopitalTest {
         ServiceMedical service = new ServiceMedical("Service Elfes", 80, 5, new ArrayList<>(), "faible");
         service.ajouterCreature(elfe);
 
-        // Logique à implémenter : retirer la créature décédée
         service.retirerCreature(elfe);  // Méthode à ajouter
         assertFalse(service.getListeCreatures().contains(elfe));
     }

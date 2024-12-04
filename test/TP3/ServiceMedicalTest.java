@@ -1,74 +1,112 @@
 package TP3;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceMedicalTest {
 
+    private ServiceMedical service;
+    private ArrayList<Creature> listeCreatures;
+    private ArrayList<Maladie> listeMaladies;
+
+    @BeforeEach
+    public void setUp() {
+        // Préparation des maladies
+        listeMaladies = new ArrayList<>();
+        listeMaladies.add(new Maladie("Grippe", "GRP", 2, 5, true));
+        listeMaladies.add(new Maladie("Rage", "RGE", 3, 5, true));
+
+        // Préparation des créatures
+        listeCreatures = new ArrayList<>();
+        listeCreatures.add(new Nain("Gimli", "Homme", 100.0, 120, 139, 5, listeMaladies));
+        listeCreatures.add(new Orque("Thrall", "Mâle", 150.0, 190, 50, 6, listeMaladies));
+
+        // Création du service médical
+        service = new ServiceMedical("Clinique des Montagnes", 200, 5, listeCreatures, "faible");
+    }
+
     @Test
-    public void testCreationServiceMedical() {
-        // Préparer les données
-        ArrayList<Maladie> listeMal = new ArrayList<>();
-        Maladie malaria = new Maladie("Malaria", "mala", 2, 5,true);
-        Maladie corida = new Maladie("Corida", "cda", 1, 5,true);
-        listeMal.add(malaria);
-        listeMal.add(corida);
-
-        Nain n1 = new Nain("Gimli LeNain", "Homme", 100, 120, 139, 5, listeMal);
-        ArrayList<Creature> listeCreatures = new ArrayList<>();
-        listeCreatures.add(n1);
-
-        // Créer un service médical valide
-        ServiceMedical service = new ServiceMedical("Clinique Elfique", 200, 5, listeCreatures, "inexistant");
-
-        // Vérifications
-        assertEquals("Clinique Elfique", service.getNom());
+    public void testGetters() {
+        assertEquals("Clinique des Montagnes", service.getNom());
         assertEquals(200, service.getSuperficie());
         assertEquals(5, service.getNombreMaximumCreatures());
-        assertEquals(1, service.getNombreCreaturesPresente());
+        assertEquals(2, service.getNombreCreaturesPresente());
+        assertEquals("faible", service.getBudget());
         assertEquals(listeCreatures, service.getListeCreatures());
-        assertEquals("inexistant", service.getBudget());
     }
 
     @Test
-    public void testCreationServiceMedicalBudgetInvalide() {
-        // Préparer les données
-        ArrayList<Creature> listeCreatures = new ArrayList<>();
+    public void testSetBudgetValide() {
+        service.setBudget("insuffisant");
+        assertEquals("insuffisant", service.getBudget());
 
-        // Vérifier qu'une exception est levée pour un budget invalide
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ServiceMedical("Clinique Elfique", 200, 5, listeCreatures, "luxueux");
-        });
+        service.setBudget("médiocre");
+        assertEquals("médiocre", service.getBudget());
+    }
+
+    @Test
+    public void testSetBudgetInvalide() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> service.setBudget("luxueux"));
         assertEquals("Erreur de création : budget invalide.", exception.getMessage());
     }
 
     @Test
-    public void testCreationServiceMedicalBudgetNull() {
-        // Préparer les données
-        ArrayList<Creature> listeCreatures = new ArrayList<>();
+    public void testAjouterCreature() {
+        Creature elfe = new Elfe("Legolas", "Homme", 60.0, 180, 120, 8, listeMaladies);
+        service.ajouterCreature(elfe);
 
-        // Vérifier qu'une exception est levée pour un budget null
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ServiceMedical("Clinique Elfique", 200, 5, listeCreatures, null);
-        });
-        assertEquals("Erreur de création : budget invalide.", exception.getMessage());
+        assertTrue(service.getListeCreatures().contains(elfe));
+        assertEquals(3, service.getNombreCreaturesPresente());
     }
+
+    @Test
+    public void testAjouterCreatureServicePlein() {
+        for (int i = 0; i < 3; i++) {
+            service.ajouterCreature(new Nain("Nain" + i, "Homme", 80.0, 150, 50, 5, listeMaladies));
+        }
+
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            service.ajouterCreature(new Nain("Trop", "Homme", 90.0, 160, 55, 6, listeMaladies));
+        });
+        assertEquals("Le service médical est plein.", exception.getMessage());
+    }
+
+    @Test
+    public void testRetirerCreature() {
+        Creature creature = listeCreatures.get(0);
+        service.retirerCreature(creature);
+
+        assertFalse(service.getListeCreatures().contains(creature));
+        assertEquals(1, service.getNombreCreaturesPresente());
+    }
+
+    @Test
+    public void testRetirerCreatureInexistante() {
+        Creature fantome = new Elfe("Fantôme", "Homme", 70.0, 180, 300, 7, listeMaladies);
+
+        service.retirerCreature(fantome);
+
+        // Vérifie qu'aucune erreur n'est levée et que rien n'est supprimé
+        assertEquals(2, service.getNombreCreaturesPresente());
+    }
+
     @Test
     public void testSoignerCreatures() {
-        ArrayList<Maladie> listeMal = new ArrayList();
-        Maladie malaria = new Maladie("Malaria", "Infection parasitaire", 2, 5,true);
-        listeMal.add(malaria);
-        Orque orque = new Orque("Orquerino","male",68,100,8,1,listeMal);
-        ArrayList<Creature> listeCreatures = new ArrayList<>();
-        listeCreatures.add(orque);
-        ServiceMedical service = new ServiceMedical("Clinique Orcs", 100, 10, listeCreatures, "faible");
-
-        int niveauMalariaAvant = malaria.getNiveauActuel();
-
+        int niveauAvant = listeMaladies.get(0).getNiveauActuel();
         service.soignerCreatures();
+        int niveauApres = listeMaladies.get(0).getNiveauActuel();
 
-        assertTrue(malaria.getNiveauActuel() == niveauMalariaAvant || malaria.getNiveauActuel() == niveauMalariaAvant - 1,
-                "Le niveau de la maladie 'Malaria' doit être réduit de 1 ou inchangé.");
+        assertTrue(niveauApres == niveauAvant || niveauApres == niveauAvant - 1,
+                "Le niveau de la maladie doit diminuer de 1 ou rester identique.");
+    }
+
+    @Test
+    public void testAfficherCaracteristiques() {
+        service.afficherCaracteristiques();
+        // Ici, on vérifie principalement que la méthode ne génère pas d'erreurs
     }
 }
