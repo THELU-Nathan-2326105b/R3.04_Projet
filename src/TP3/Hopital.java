@@ -16,6 +16,11 @@ public class Hopital {
         this.services = new ArrayList<>();
         this.medecins = new ArrayList<>();
     }
+    // Getter pour les médecins
+    public ArrayList<Medecin> getMedecins() {
+        return (ArrayList<Medecin>) medecins;
+    }
+
 
     // Ajouter un service médical
     public boolean ajouterService(ServiceMedical service) {

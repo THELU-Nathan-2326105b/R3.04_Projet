@@ -25,8 +25,8 @@ public class HopitalTest {
 
         hopital.ajouterMedecin(medecin);
 
-        //assertEquals(1, hopital.getMedecins().size());
-        //assertEquals("Dr Orc", hopital.getMedecins().get(0).toString());
+        assertEquals(1, hopital.getMedecins().size());
+        assertEquals("Médecin : Dr Orc | Sexe : Mâle | Âge : 50", hopital.getMedecins().get(0).toString());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class HopitalTest {
         Medecin medecin = new Medecin("Dr Orc", "Mâle", 50);
         medecin.soigner(service);
 
-        assertEquals(2, orque.getListeMaladie().getFirst().getNiveauActuel());
+        assertEquals(2, orque.getListeMaladie().get(0).getNiveauActuel());
     }
 
     @Test
@@ -68,16 +68,13 @@ public class HopitalTest {
         assertEquals(4, elfe.getMoralIndic());
     }
 
-
-
-
     @Test
     public void testTrepasser() {
         ArrayList<Maladie> maladies = new ArrayList<>();
         maladies.add(new Maladie("PEC", "Porphyrie", 5, 5, true));
 
         Creature elfe = new Elfe("Lindir", "Femme", 60, 170, 120, 5, maladies);
-        assertTrue(elfe.getListeMaladie().getFirst().estLetale());
+        assertTrue(elfe.getListeMaladie().get(0).estLetale());
 
         ServiceMedical service = new ServiceMedical("Service Elfes", 80, 5, new ArrayList<>(), "faible");
         service.ajouterCreature(elfe);

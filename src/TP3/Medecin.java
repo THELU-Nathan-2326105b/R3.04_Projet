@@ -11,6 +11,7 @@ public class Medecin {
         this.age = age;
     }
 
+
     // Examiner un service médical
     public void examiner(ServiceMedical service) {
         System.out.println("Médecin " + nom + " examine le service : " + service.getNom());
@@ -51,11 +52,26 @@ public class Medecin {
     }
 
     // Réviser le budget d’un service médical
-//    public void reviserBudget(ServiceMedical service, String nouveauBudget) {
-//        System.out.println("Médecin " + nom + " révise le budget du service : " + service.getNom());
-//        service.reviserBudget(nouveauBudget);
-//        System.out.println("Nouveau budget : " + service.getBudget());
-//    }
+    public void reviserBudget(ServiceMedical service, String nouveauBudget) {
+        System.out.println("Médecin " + nom + " révise le budget du service : " + service.getNom());
+        service.setBudget(nouveauBudget);
+        System.out.println("Nouveau budget : " + service.getBudget());
+    }
+
+    // Transférer une créature d’un service médical à un autre
+    public void transfererCreature(ServiceMedical source, ServiceMedical destination, Creature creature) {
+        if (source.getListeCreatures().contains(creature)) {
+            if (destination.getNombreCreaturesPresente() < destination.getNombreMaximumCreatures()) {
+                source.getListeCreatures().remove(creature);
+                destination.getListeCreatures().add(creature);
+                System.out.println("Créature " + creature.getNomComplet() + " transférée de " + source.getNom() + " à " + destination.getNom());
+            } else {
+                System.out.println("Le service " + destination.getNom() + " est plein. Transfert impossible.");
+            }
+        } else {
+            System.out.println("La créature " + creature.getNomComplet() + " n'est pas présente dans le service " + source.getNom());
+        }
+    }
 
     @Override
     public String toString() {
