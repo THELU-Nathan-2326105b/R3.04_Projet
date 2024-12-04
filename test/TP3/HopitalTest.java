@@ -67,7 +67,7 @@ public class HopitalTest {
         ServiceMedical service = new ServiceMedical("Triage", 300, 5, new ArrayList<>(), "faible");
         service.ajouterCreature(elfe);
         elfe.attendre(service);
-        assertEquals(4, elfe.getMoralIndic());
+        assertEquals(3, elfe.getMoralIndic());
     }
 
     @Test

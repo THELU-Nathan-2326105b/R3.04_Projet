@@ -69,6 +69,9 @@ public abstract class Creature {
         if (this instanceof Orque || this instanceof HommeBete ||this instanceof Zombie || this instanceof Lycanthrope) {
             attendreEnTriage(serviceMedical);
         }
+        else if(this instanceof Vampire || this instanceof Reptilien ||this instanceof Nain || this instanceof Elfe){
+            attendreAvecEffetVIP(serviceMedical);
+        }
         else{
             if (this.moralIndic <= 1) {
                 this.hurler();

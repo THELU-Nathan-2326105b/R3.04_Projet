@@ -21,7 +21,7 @@ public class CreatureTest {
         service.ajouterCreature(n1);
         n1.attendre(service);
         int moral2 = n1.getMoralIndic();
-        assertEquals(4, moral2);
+        assertEquals(3, moral2);
     }
 
     @Test
@@ -100,13 +100,15 @@ public class CreatureTest {
         assertTrue(nain.aMaladieContagieuse());
     }
 
-    /*@Test
+    @Test
     public void testAttendreAvecEffetVIP() {
         ArrayList<Maladie> listeMal = new ArrayList<>();
         Nain n1 = new Nain("Gimli ", "Homme", 100, 120, 139, 5, listeMal);
-        n1.attendreAvecEffetVIP(true);
+        ServiceMedical service = new ServiceMedical("Triage", 300, 5, new ArrayList<>(), "faible");
+        service.ajouterCreature(n1);
+        n1.attendre(service);
         assertEquals(3, n1.getMoralIndic());
-    }*/
+    }
 
     @Test
     public void testAttendreEnTriage() {
