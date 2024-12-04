@@ -117,13 +117,14 @@ public abstract class Creature {
     public void etreSoigne() {
         if (!listeMaladies.isEmpty()) {
             Maladie maladie = listeMaladies.getFirst();
-            maladie.diminuerNiveau(1);
+            maladie.diminuerNiveau(1);  // Réduit le niveau de la maladie de 1
             if (maladie.getNiveauActuel() <= 1) {
-                listeMaladies.remove(maladie);
+                listeMaladies.remove(maladie);  // Si la maladie est guérie, on la retire de la liste
                 System.out.println(this.nomComplet + " est guéri de : " + maladie.getNomComplet());
             }
         }
     }
+
 
     public boolean aMaladieContagieuse() {
         return listeMaladies.stream().anyMatch(Maladie::isContagieuse);
@@ -204,4 +205,10 @@ public abstract class Creature {
         listeMaladies.add(maladie);
         System.out.println(this.nomComplet + " a attrapé : " + maladie.getNomComplet());
     }
+
+    @Override
+    public String toString() {
+        return nomComplet + " (Age: " + age + ", Sexe: " + sexe + ")";
+    }
+
 }

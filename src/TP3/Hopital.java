@@ -9,18 +9,34 @@ public class Hopital {
     private int maxServices;
     private List<ServiceMedical> services;
     private List<Medecin> medecins;
+    private int jour;  // Nouveau champ pour suivre le jour actuel
 
     public Hopital(String nom, int maxServices) {
         this.nom = nom;
         this.maxServices = maxServices;
         this.services = new ArrayList<>();
         this.medecins = new ArrayList<>();
+        this.jour = 1;  // Initialiser le jour à 1 au départ
     }
+
     // Getter pour les médecins
     public ArrayList<Medecin> getMedecins() {
         return (ArrayList<Medecin>) medecins;
     }
 
+    public ArrayList<ServiceMedical> getServices() {
+        return (ArrayList<ServiceMedical>) services;
+    }
+
+    // Getter pour le jour
+    public int getJour() {
+        return jour;
+    }
+
+    // Incrémenter le jour (passage au jour suivant)
+    public void incrementerJour() {
+        jour++;  // Augmenter le jour de 1
+    }
 
     // Ajouter un service médical
     public boolean ajouterService(ServiceMedical service) {
@@ -36,13 +52,14 @@ public class Hopital {
         medecins.add(medecin);
     }
 
+
     // Afficher les créatures de tous les services
     public void afficherCreatures() {
         System.out.println("Créatures dans tous les services :");
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
             for (Creature creature : service.getListeCreatures()) {
-                System.out.println(" - ");
+                System.out.println(" - " + creature.getNomComplet());
             }
         }
     }
@@ -90,12 +107,12 @@ public class Hopital {
 
         // Actions aléatoires sur les médecins
         for (Medecin medecin : medecins) {
-            System.out.println(getMedecins() + " vérifie les services.");
+            System.out.println(medecin.getNom() + " vérifie les services.");
             if (random.nextBoolean() && !services.isEmpty()) {
                 ServiceMedical service = services.get(random.nextInt(services.size()));
                 if (!service.getListeCreatures().isEmpty()) {
                     Creature creature = service.getListeCreatures().get(random.nextInt(service.getListeCreatures().size()));
-                    System.out.println(getMedecins() + " soigne " + creature.getNomComplet() + " dans le service " + service.getNom() + ".");
+                    System.out.println(medecin.getNom() + " soigne " + creature.getNomComplet() + " dans le service " + service.getNom() + ".");
                     medecin.soigner(service);
                 }
             }
@@ -103,5 +120,4 @@ public class Hopital {
 
         System.out.println("\nFin de la simulation de la journée.");
     }
-
 }

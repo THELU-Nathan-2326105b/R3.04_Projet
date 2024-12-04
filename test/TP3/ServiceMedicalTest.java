@@ -109,5 +109,4 @@ public class ServiceMedicalTest {
         service.afficherCaracteristiques();
         // Ici, on vérifie principalement que la méthode ne génère pas d'erreurs
     }
-
 }

@@ -44,10 +44,13 @@ public class SimulationHopital {
         hopital.ajouterMedecin(medecin1);
         hopital.ajouterMedecin(medecin2);
 
+        MenuHopital menu = new MenuHopital(hopital);
+
         // Début de la simulation
         System.out.println("=== Début de la Simulation ===");
         for (int jour = 1; jour <= 5; jour++) {
             System.out.println("\n--- Jour " + jour + " ---");
+            menu.afficherMenu();
             hopital.simuler();
         }
 

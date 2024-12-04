@@ -9,6 +9,7 @@ public class ServiceMedical {
     private int nombreMaximumCreatures;
     private ArrayList<Creature> listeCreatures;
     private String budget;
+    private ArrayList<Medecin> medecins; // Nouvel attribut pour gérer les médecins
 
     public ServiceMedical(String nom, int superficie, int nombreMaximumCreatures, ArrayList<Creature> listeCreatures, String budget) {
         if (budget == null || (!budget.equals("inexistant") && !budget.equals("médiocre") && !budget.equals("insuffisant") && !budget.equals("faible"))) {
@@ -17,8 +18,9 @@ public class ServiceMedical {
         this.nom = nom;
         this.superficie = superficie;
         this.nombreMaximumCreatures = nombreMaximumCreatures;
-        this.listeCreatures = new ArrayList<>(listeCreatures); // Copie défensive pour éviter des modifications extérieures
+        this.listeCreatures = new ArrayList<>(listeCreatures); // Copie défensive
         this.budget = budget;
+        this.medecins = new ArrayList<>(); // Initialisation de la liste des médecins
     }
 
     public String getNom() {
@@ -64,6 +66,7 @@ public class ServiceMedical {
         System.out.println("Nombre maximum de créatures : " + nombreMaximumCreatures);
         System.out.println("Nombre de créatures présentes : " + getNombreCreaturesPresente());
         System.out.println("Budget : " + budget);
+        System.out.println("Médecins affectés : " + medecins.size());
         System.out.println("Liste des créatures :");
         for (Creature creature : listeCreatures) {
             System.out.println(" - " + creature);
@@ -84,24 +87,22 @@ public class ServiceMedical {
     public void retirerCreature(Creature creature) {
         if (listeCreatures.contains(creature)) {
             listeCreatures.remove(creature);
-            System.out.println(creature.getNom() + " a été retirée du service " + this.nom + ".");
+            System.out.println(creature.getNomComplet() + " a été retirée du service " + this.nom + ".");
         } else {
-            System.out.println(creature.getNom() + " n'est pas présent dans ce service.");
+            System.out.println(creature.getNomComplet() + " n'est pas présente dans ce service.");
         }
     }
 
-
     public void soignerCreatures() {
         Random r1 = new Random();
-
         for (Creature creature : listeCreatures) {
             for (Maladie maladie : creature.getListeMaladie()) {
                 int nb = r1.nextInt(5);
                 if (nb == 0) {
                     int niveauActuel = maladie.getNiveauActuel();
-                    if (niveauActuel > 0) { // Diminue le niveau uniquement s'il est supérieur à 0
+                    if (niveauActuel > 0) {
                         maladie.setNiveauActuel(niveauActuel - 1);
-                        System.out.println("La maladie " + maladie.getNomComplet() + " de " + creature.getNom() + " a été soignée, nouveau niveau : " + maladie.getNiveauActuel());
+                        System.out.println("La maladie " + maladie.getNomComplet() + " de " + creature.getNomComplet() + " a été soignée, nouveau niveau : " + maladie.getNiveauActuel());
                     }
                 }
             }
@@ -121,9 +122,17 @@ public class ServiceMedical {
             }
     }
 
+    // Gestion des médecins
+    public void ajouterMedecin(Medecin medecin) {
+        medecins.add(medecin);
+    }
+
+    public ArrayList<Medecin> getMedecins() {
+        return medecins;
+    }
 
     protected boolean estTypeCompatible(Creature creature) {
-        return true;
+        return true; // À surcharger pour des types spécifiques
     }
 
     public void contaminer(Creature creatureMorte) {
@@ -139,4 +148,21 @@ public class ServiceMedical {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom : ").append(nom).append("\n");
+        sb.append("Superficie : ").append(superficie).append("\n");
+        sb.append("Nombre maximum de créatures : ").append(nombreMaximumCreatures).append("\n");
+        sb.append("Créatures présentes : ").append(listeCreatures.size()).append("\n");
+
+        sb.append("Liste des créatures :\n");
+        for (Creature creature : listeCreatures) {
+            sb.append(" - ").append(creature.getNomComplet()).append("\n");
+        }
+
+        return sb.toString();
+    }
+
 }

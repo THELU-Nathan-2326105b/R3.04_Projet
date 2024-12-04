@@ -11,6 +11,10 @@ public class Medecin {
         this.age = age;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
 
     // Examiner un service médical
     public void examiner(ServiceMedical service) {
