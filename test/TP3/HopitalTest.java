@@ -76,12 +76,25 @@ public class HopitalTest {
         maladies.add(new Maladie("PEC", "Porphyrie", 5, 5, true));
 
         Creature elfe = new Elfe("Lindir", "Femme", 60, 170, 120, 5, maladies);
-        assertTrue(elfe.getListeMaladie().get(0).estLetale());
+        assertTrue(elfe.getListeMaladie().getFirst().estLetale());
 
         ServiceMedical service = new ServiceMedical("Service Elfes", 80, 5, new ArrayList<>(), "faible");
         service.ajouterCreature(elfe);
 
-        service.retirerCreature(elfe);  // Méthode à ajouter
+        service.retirerCreature(elfe);
         assertFalse(service.getListeCreatures().contains(elfe));
+    }
+
+    @Test
+    public void testMaladieNiveau() {
+        ArrayList<Maladie> maladies = new ArrayList<>();
+        maladies.add(new Maladie("PEC", "Porphyrie", 2, 5, true));
+
+        Creature elfe = new Elfe("Lindir", "Femme", 60, 170, 120, 5, maladies);
+
+        ServiceMedical service = new ServiceMedical("Service Elfes", 80, 5, new ArrayList<>(), "faible");
+        service.ajouterCreature(elfe);
+
+        assertEquals(2, service.getListeCreatures().getFirst().getListeMaladie().getFirst().getNiveauActuel());
     }
 }

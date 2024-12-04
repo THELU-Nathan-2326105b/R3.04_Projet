@@ -59,7 +59,16 @@ public class Hopital {
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
             for (Creature creature : service.getListeCreatures()) {
-                System.out.println(" - " + creature.getNomComplet());
+                System.out.print(" - " + creature.getNomComplet());
+                if (creature.getListeMaladie().isEmpty()){
+                    System.out.println(" ne possède pas de maladie");
+                }
+                else if (creature.getListeMaladie().size() == 1){
+                    System.out.println(" possède la maladie " + creature.getListeMaladie());
+                }
+                else {
+                    System.out.println(" possède les maladies " + creature.getListeMaladie());
+                }
             }
         }
     }
@@ -89,6 +98,18 @@ public class Hopital {
                     case 2 -> { // Soins aléatoires
                         System.out.println("Un médecin soigne " + creature.getNomComplet() + ".");
                         creature.etreSoigne();
+                    }
+                }
+                for(int i =0; i<creature.getListeMaladie().size(); i++){
+                    Random random2 = new Random();
+                    double valeur2 = random2.nextDouble(); // Génère une valeur aléatoire entre 0.0 et 1.0
+                    if (valeur2 < 0.5) {
+                        creature.getListeMaladie().get(i).augmenterNiveau(1);
+                        System.out.println("Le niveau de la maladie " + creature.getListeMaladie().get(i) + " est passé à " + creature.getListeMaladie().get(i).getNiveauActuel() );
+                    }
+                    else{
+                        creature.getListeMaladie().get(i).diminuerNiveau(1);
+                        System.out.println("Le niveau de la maladie " + creature.getListeMaladie().get(i) + " est passé à " + creature.getListeMaladie().get(i).getNiveauActuel() );
                     }
                 }
 
