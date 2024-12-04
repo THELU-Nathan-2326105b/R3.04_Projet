@@ -64,7 +64,9 @@ public class HopitalTest {
     @Test
     public void testAttendre() {
         Elfe elfe = new Elfe("Lindir", "Femme", 60, 170, 120, 5, new ArrayList<>());
-        elfe.attendre();
+        ServiceMedical service = new ServiceMedical("Triage", 300, 5, new ArrayList<>(), "faible");
+        service.ajouterCreature(elfe);
+        elfe.attendre(service);
         assertEquals(4, elfe.getMoralIndic());
     }
 

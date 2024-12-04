@@ -1,5 +1,7 @@
 package TP3;
 
+import TP3.Lycanthropes.Lycanthrope;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,14 +61,21 @@ public abstract class Creature {
         return moralIndic;
     }
 
-    public String getNom() { return nomComplet; }
+    public String getNom() {
+        return nomComplet;
+    }
 
-    public void attendre(){
-        if(this.moralIndic<=1){
-            this.hurler();
+    public void attendre(ServiceMedical serviceMedical) {
+        if (this instanceof Orque || this instanceof HommeBete ||this instanceof Zombie || this instanceof Lycanthrope) {
+            attendreEnTriage(serviceMedical);
         }
         else{
-            this.setMoralIndic(this.moralIndic-1);
+            if (this.moralIndic <= 1) {
+                this.hurler();
+            } else {
+                this.setMoralIndic(this.moralIndic - 1);
+            }
+
         }
     }
 
@@ -118,21 +127,32 @@ public abstract class Creature {
     }
 
     public void trepasser(ServiceMedical serviceMedical) {
+        // Vérifie si la créature a une maladie létale
         for (Maladie maladie : listeMaladies) {
             if (maladie.estLetale()) {
-                System.out.println("La créature " + this.nomComplet + " est morte à cause de la maladie : " + maladie.getNomComplet());
+                // Affiche un message indiquant que la créature est morte
+                System.out.println("La créature " + this.getNom() + " est morte à cause de la maladie : " + maladie.getNomComplet());
+
+                // Supprime la créature du service médical
                 serviceMedical.retirerCreature(this);
 
+                // Si la créature est un Elfe ou un Vampire, elle démoralise les autres membres
                 if (this instanceof Elfe || this instanceof Vampire) {
-                    System.out.println("La mort de " + this.nomComplet + " démoralise les autres créatures.");
+
+                    System.out.println("La mort de " + this.getNom() + " démoralise les autres créatures.");
                     serviceMedical.reduireMoralDesAutres(this);
                 }
 
                 if (this instanceof Zombie || this instanceof Vampire) {
                     regenerer(serviceMedical);
                 }
+                if (this instanceof HommeBete || this instanceof Lycanthrope || this instanceof Orque || this instanceof Vampire) {
+                    serviceMedical.contaminer(this);
+                }
 
                 listeMaladies.clear();
+
+                // Arrêter la méthode après la mort
                 return;
             }
         }
@@ -157,27 +177,18 @@ public abstract class Creature {
         }
     }
 
-    public void attendreAvecEffetVIP(boolean estVIP) {
-        if (estVIP) {
+    public void attendreAvecEffetVIP(ServiceMedical service) {
             this.setMoralIndic(this.moralIndic - 2);
             System.out.println(this.nomComplet + " (VIP) perd 2 points de moral.");
-        } else {
-            this.attendre();
-        }
-
     }
 
-    public void attendreEnTriage(ServiceMedical service, boolean estEnTriage) {
-        if (estEnTriage) {
+    public void attendreEnTriage(ServiceMedical service) {
             long nombreCongeneres = service.getListeCreatures().stream()
                     .filter(c -> c.getClass().equals(this.getClass()))
                     .count();
             if (nombreCongeneres > 1) {
                 System.out.println(this.nomComplet + " tolère mieux l'attente grâce à la présence de congénères.");
-                return;
             }
-        }
-        this.attendre();
     }
 
     public void regenerer(ServiceMedical service) {

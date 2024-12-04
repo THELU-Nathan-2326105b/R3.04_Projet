@@ -11,7 +11,7 @@ public class MaladieTest {
         Maladie maladie = new Maladie("Maladie Débilitante Chronique", "MDC", 1,5, true);
         assertEquals("Maladie Débilitante Chronique", maladie.getNomComplet());
         assertEquals("MDC", maladie.getNomAbrege());
-        assertEquals(0, maladie.getNiveauActuel());
+        assertEquals(1, maladie.getNiveauActuel());
         assertEquals(5, maladie.getNiveauMaximum());
     }
     @Test

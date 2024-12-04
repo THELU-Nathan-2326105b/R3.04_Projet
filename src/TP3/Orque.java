@@ -35,4 +35,5 @@ public class Orque extends Creature{
     public void hurler() {
         System.out.print("TRUP GURM-IRZI RIPÛRZ GOZADÛRZ !!!"); // Traduction Orc-Français : Corps dénoyauté par des pantalons en peau clouté
     }
+
 }

@@ -109,16 +109,34 @@ public class ServiceMedical {
     }
 
     public void reduireMoralDesAutres(Creature creatureMorte) {
-        for (Creature creature : listeCreatures) {
-            if (!creature.equals(creatureMorte)) { // Ne pas affecter la créature morte
-                creature.setMoralIndic(creature.getMoralIndic() - 1); // Réduire le moral de 1
-                System.out.println("Le moral de " + creature.getNom() + " est maintenant de " + creature.getMoralIndic());
+            for (Creature creature : listeCreatures) {
+                if (!creature.equals(creatureMorte)) { // Ne pas affecter la créature morte
+                    Random random = new Random();
+                    double valeur = random.nextDouble(); // Génère une valeur aléatoire entre 0.0 et 1.0
+                    if (valeur < 0.5) {
+                        creature.setMoralIndic(creature.getMoralIndic() - 1); // Réduire le moral de 1
+                        System.out.println("Le moral de " + creature.getNom() + " est maintenant de " + creature.getMoralIndic());
+                    }
+                }
             }
-        }
     }
 
 
     protected boolean estTypeCompatible(Creature creature) {
         return true;
+    }
+
+    public void contaminer(Creature creatureMorte) {
+        for (Creature creature : listeCreatures) {
+            if (!creature.equals(creatureMorte)) { // Ne pas affecter la créature morte
+                Random random = new Random();
+                double valeur = random.nextDouble(); // Génère une valeur aléatoire entre 0.0 et 1.0
+                if (valeur < 0.5) {
+
+                    creature.getListeMaladie().add(creatureMorte.getListeMaladie().getFirst());
+                    System.out.println("La créature " + creature.getNom() + " a attrapé la maladie " + creatureMorte.getListeMaladie().getFirst());
+                }
+            }
+        }
     }
 }

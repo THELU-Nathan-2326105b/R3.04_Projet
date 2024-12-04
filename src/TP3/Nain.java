@@ -35,4 +35,6 @@ public class Nain extends Creature{
     public void hurler() {
         System.out.print("UNE MINE !!!");
     }
+
+
 }

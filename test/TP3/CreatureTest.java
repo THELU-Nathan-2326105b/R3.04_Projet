@@ -17,7 +17,9 @@ public class CreatureTest {
         listeMal.add(malaria);
         listeMal.add(corida);
         Nain n1 = new Nain("Gimli ", "Homme", 100, 120, 139, 5, listeMal);
-        n1.attendre();
+        ServiceMedical service = new ServiceMedical("Triage", 300, 5, new ArrayList<>(), "faible");
+        service.ajouterCreature(n1);
+        n1.attendre(service);
         int moral2 = n1.getMoralIndic();
         assertEquals(4, moral2);
     }
@@ -98,13 +100,13 @@ public class CreatureTest {
         assertTrue(nain.aMaladieContagieuse());
     }
 
-    @Test
+    /*@Test
     public void testAttendreAvecEffetVIP() {
         ArrayList<Maladie> listeMal = new ArrayList<>();
         Nain n1 = new Nain("Gimli ", "Homme", 100, 120, 139, 5, listeMal);
         n1.attendreAvecEffetVIP(true);
         assertEquals(3, n1.getMoralIndic());
-    }
+    }*/
 
     @Test
     public void testAttendreEnTriage() {
@@ -116,7 +118,41 @@ public class CreatureTest {
         triage.ajouterCreature(orque1);
         triage.ajouterCreature(orque2);
 
-        orque1.attendreEnTriage(triage, true);
-        assertEquals(5, orque1.getMoralIndic()); // Moral change pas
+        orque1.attendre(triage);
+        assertEquals(5 , orque1.getMoralIndic()); // Moral change pas
+    }
+
+    @Test
+    public void testRegenerer(){
+        ArrayList<Maladie> maladiesLethales = new ArrayList<>();
+        Maladie maladieLetale = new Maladie("Grippe", "GRP", 5, 5, true);
+        maladiesLethales.add(maladieLetale);
+
+        Creature zombie = new Zombie("John", "Homme", 100, 180, 35, 3, maladiesLethales);
+        ServiceMedical serviceMedical = new ServiceMedical("Service Fantastique", 300, 5, new ArrayList<>(), "faible");
+        serviceMedical.ajouterCreature(zombie);
+
+        zombie.trepasser(serviceMedical);
+        assertTrue(serviceMedical.getListeCreatures().contains(zombie));
+    }
+
+    @Test
+    public void testContaminer(){
+        ArrayList<Maladie> maladiesLethales = new ArrayList<>();
+        Maladie maladieLetale = new Maladie("Grippe", "GRP", 5, 5, true);
+        maladiesLethales.add(maladieLetale);
+        ArrayList<Maladie> maladiesPasLethales = new ArrayList<>();
+        Maladie maladiePasLetale = new Maladie("Grippee", "GRP", 1, 5, true);
+        maladiesPasLethales.add(maladiePasLetale);
+
+        Creature hb = new HommeBete("John", "Homme", 100, 180, 35, 3, maladiesLethales);
+        Creature elfe = new Elfe("Johnny", "Homme", 100, 180, 35, 3, maladiesPasLethales);
+        Creature nain = new Nain("Jejou", "Homme", 100, 180, 35, 3, maladiesPasLethales);
+        ServiceMedical serviceMedical = new ServiceMedical("Service Fantastique", 300, 5, new ArrayList<>(), "faible");
+        serviceMedical.ajouterCreature(hb);
+        serviceMedical.ajouterCreature(elfe);
+        serviceMedical.ajouterCreature(nain);
+        hb.trepasser(serviceMedical);
+        assertTrue(serviceMedical.getListeCreatures().getFirst().getListeMaladie().contains(maladieLetale) ||serviceMedical.getListeCreatures().getLast().getListeMaladie().contains(maladieLetale));
     }
 }

@@ -1,4 +1,7 @@
-package TP3;
+package TP3.Lycanthropes;
+
+import TP3.Creature;
+import TP3.Maladie;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,7 +26,17 @@ public class Lycanthrope extends Creature {
         this.meute = meute;
     }
 
+    public String getMeute() {
+        return meute;
+    }
 
+    public int getFacteurDom() {
+        return facteurDom;
+    }
+
+    public int getRangDom() {
+        return rangDom;
+    }
 
     public void afficheCaracteristique() {
         System.out.println("NomComplet : " + this.getNomComplet() + " Age : "+ this.age+ " Sexe : " + this.getSexe() +

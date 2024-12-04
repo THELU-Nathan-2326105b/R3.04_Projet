@@ -2,7 +2,7 @@ package TP3;
 
 import java.util.ArrayList;
 
-public class Elfe extends Creature {
+public class Reptilien extends Creature{
     private String nomComplet; //Nom puis prénom
     private String sexe; //Tout choix possible
     private double poids; //En kilogramme
@@ -11,7 +11,7 @@ public class Elfe extends Creature {
     private int moralIndic; //Oscille entre 1 et 5
     private ArrayList<Maladie> listeMaladies;
 
-    public Elfe(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
+    public Reptilien(String nomComplet, String sexe, double poids, int taille, int age, int moralIndic, ArrayList<Maladie> listeMaladies) {
         super(nomComplet, sexe, poids, taille, age, moralIndic, listeMaladies);
         this.nomComplet = nomComplet;
         this.sexe = sexe;
@@ -32,7 +32,7 @@ public class Elfe extends Creature {
 
     @Override
     public void hurler() {
-        System.out.print("BEREN ROHAN ESTEL SERNI !!!");
+        System.out.print("JE SUIS ELISABETH II !!!"); //Rapport au fait qu'il soit bête
     }
 
 }
