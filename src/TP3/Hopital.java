@@ -47,58 +47,61 @@ public class Hopital {
         }
     }
 
-    // Simuler des événements temporels
     public void simuler() {
-        Random random = new Random();
-        System.out.println("Début de la simulation pour l'hôpital : " + nom);
+        System.out.println("\n--- Simulation d'une journée dans l'hôpital : " + nom + " ---");
 
-        // Modifier l'état des créatures
+        Random random = new Random();
+
         for (ServiceMedical service : services) {
             System.out.println("\nService : " + service.getNom());
-            for (Creature creature : service.getListeCreatures()) {
-                // Action aléatoire
-                int event = random.nextInt(3); // 0: attendre, 1: tomber malade, 2: s'emporter
-                switch (event) {
-                    case 0 -> creature.attendre();
-                    case 1 -> creature.tomberMalade();
-                    //case 2 -> creature.sEmporter();
-                }
 
-//                // Vérifier si la créature décède
-//                if (creature.trepasser()) {
-//                    System.out.println(creature.getNomComplet() + " a trépassé.");
-//                    service.getListeCreatures().remove(creature);
-//                    continue;
-//                }
+            // Actions sur chaque créature
+            ArrayList<Creature> creatures = new ArrayList<>(service.getListeCreatures());
+            for (Creature creature : creatures) {
+                int action = random.nextInt(3);
 
-                // Afficher les maladies de la créature
-                System.out.println("Maladies " + " :");
-                if (creature.getListeMaladies().isEmpty()) {
-                    System.out.println("  Aucune maladie.");
-                } else {
-                    for (Maladie maladie : creature.getListeMaladie()) {
-                        System.out.println("  - " + maladie.getNomComplet() + " (Niveau : " + maladie.getNiveauActuel() + "/" + maladie.getNiveauMaximum() + ")");
+                switch (action) {
+                    case 0 -> { // Attente
+                        System.out.println(creature.getNomComplet() + " attend...");
+                        creature.attendre();
+                    }
+                    case 1 -> { // Tomber malade
+                        System.out.println(creature.getNomComplet() + " risque de tomber malade.");
+                        creature.tomberMalade();
+                    }
+                    case 2 -> { // Soins aléatoires
+                        System.out.println("Un médecin soigne " + creature.getNomComplet() + ".");
+                        creature.etreSoigne();
                     }
                 }
+
+                // Vérification du trépas
+                creature.trepasser(service);
             }
+
+            // Ajustement aléatoire du budget du service
+            int budgetChange = random.nextInt(3) - 1; // -1, 0 ou 1
+            String[] niveauxBudget = {"faible", "moyen", "élevé"};
+            int budgetActuel = java.util.Arrays.asList(niveauxBudget).indexOf(service.getBudget());
+            int nouveauBudget = Math.max(0, Math.min(budgetActuel + budgetChange, niveauxBudget.length - 1));
+            service.setBudget(niveauxBudget[nouveauBudget]);
+            System.out.println("Le budget du service est maintenant : " + niveauxBudget[nouveauBudget]);
         }
 
-        // Modifier les services médicaux
-        for (ServiceMedical service : services) {
-            if (random.nextBoolean()) {
-                System.out.println("Révision du budget pour le service : " + service.getNom());
-                // Simuler une révision aléatoire du budget
-            }
-        }
-
-        // Actions des médecins
+        // Actions aléatoires sur les médecins
         for (Medecin medecin : medecins) {
-            if (!services.isEmpty()) {
+            System.out.println(getMedecins() + " vérifie les services.");
+            if (random.nextBoolean() && !services.isEmpty()) {
                 ServiceMedical service = services.get(random.nextInt(services.size()));
-                medecin.soigner(service);
+                if (!service.getListeCreatures().isEmpty()) {
+                    Creature creature = service.getListeCreatures().get(random.nextInt(service.getListeCreatures().size()));
+                    System.out.println(getMedecins() + " soigne " + creature.getNomComplet() + " dans le service " + service.getNom() + ".");
+                    medecin.soigner(service);
+                }
             }
         }
 
-        System.out.println("Fin de la simulation.");
+        System.out.println("\nFin de la simulation de la journée.");
     }
+
 }
