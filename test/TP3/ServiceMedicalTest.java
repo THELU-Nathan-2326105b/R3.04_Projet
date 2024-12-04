@@ -109,4 +109,42 @@ public class ServiceMedicalTest {
         service.afficherCaracteristiques();
         // Ici, on vérifie principalement que la méthode ne génère pas d'erreurs
     }
+    @Test
+    public void testSoignerCreatures() {
+        // Création des maladies
+        Maladie malaria = new Maladie("Malaria", "Infection parasitaire", 2, 5);
+        Maladie grippe = new Maladie("Grippe", "Infection virale", 1, 3);
+
+        // Création des créatures avec leurs maladies
+        Orque orque = new Orque("Orquerino","male","68","100","8","1","PTSD");
+        orque.ajouterMaladie(malaria);
+        orque.ajouterMaladie(grippe);
+
+        Creature troll = new Creature("Troll");
+        troll.ajouterMaladie(grippe);
+
+        // Création de la liste de créatures
+        ArrayList<Creature> listeCreatures = new ArrayList<>();
+        listeCreatures.add(orque);
+        listeCreatures.add(troll);
+
+        // Création du service médical
+        ServiceMedical service = new ServiceMedical("Clinique Orcs", 100, 10, listeCreatures, "faible");
+
+        // Avant le soin, récupération des niveaux initiaux des maladies
+        int niveauMalariaAvant = malaria.getNiveau();
+        int niveauGrippeAvantOrque = grippe.getNiveau();
+        int niveauGrippeAvantTroll = grippe.getNiveau();
+
+        // Appel de la méthode pour soigner les créatures
+        service.soignerCreatures();
+
+        // Vérification : les niveaux des maladies doivent être soit inchangés, soit réduits de 1
+        assertTrue(malaria.getNiveau() == niveauMalariaAvant || malaria.getNiveau() == niveauMalariaAvant - 1,
+                "Le niveau de la maladie 'Malaria' doit être réduit de 1 ou inchangé.");
+        assertTrue(grippe.getNiveau() == niveauGrippeAvantOrque || grippe.getNiveau() == niveauGrippeAvantOrque - 1,
+                "Le niveau de la maladie 'Grippe' (Orque) doit être réduit de 1 ou inchangé.");
+        assertTrue(grippe.getNiveau() == niveauGrippeAvantTroll || grippe.getNiveau() == niveauGrippeAvantTroll - 1,
+                "Le niveau de la maladie 'Grippe' (Troll) doit être réduit de 1 ou inchangé.");
+    }
 }
